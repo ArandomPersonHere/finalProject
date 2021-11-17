@@ -2,7 +2,7 @@
 
  ## Decsription
  
- I am planning go make an adjustable array of different sequential notes(prolly C scale for ease of use and sanity), that you can try out different chords and sequences with. basically a digital chord synth. 
+ I am planning go make an adjustable array of different sequential notes(prolly C scale for ease of use and sanity), that you can try out different chords and sequences with. Basically a digital chord synth. 
  
  ## Must have List
  

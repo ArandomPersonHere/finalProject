@@ -4,6 +4,8 @@
 // 2 - simultainiously play audio files in a collum
 // 3 - have an auto play feature that visually dispays what collum it's playing
 
+//const { PolySynth } = require("p5");
+
 
 //grid sizes 
 let gridSize = 5;
@@ -22,7 +24,7 @@ let dur = 1/6;
 let note;
 
 //time
-let playTimer;
+//let playTimer;
 
 function preload(){
    
@@ -48,18 +50,17 @@ function setup() {
   grid = createEmpty2DArray(gridSize, gridSize);
  
 
-  monoSynth = new p5.MonoSynth();
+  monoSynth = new p5.PolySynth();
   // a simple C scale with C4 = 0
   note = [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"];
   velocity = random();
 
-  playTimer = new Timer(2000);
+  //playTimer = new Timer(2000);
 }
 
 function draw() {
   //background("green");
   displayGrid();
-
 
 }
 
@@ -77,52 +78,45 @@ function keyPressed(){
 
   
 }
-class Timer{
-  constructor(waitTime){
-    this.startTime = millis();
-    this.waitTime  = waitTime;
 
-  }
-
-  isDone(){
-    return millis() > this.waitTime + this.startTime;
-  }
-
-  reset(){  
-    this.startTime = millis();
-  }
-}
+//ok so i'll do without
+// class Timer{
+//   constructor(waitTime){
+//     this.startTime = millis();
+//     this.waitTime  = waitTime;
+//   }
+//   isDone(){
+//     return millis() > this.waitTime + this.startTime;
+//   }
+//   reset(){  
+//     this.startTime = millis();
+//   }
+// }
 function linePlayer(){
   // reads the first line of the grid and plays the notes seperately
   // without changing the tiles
+  let notesToPlay = [];
+  for (let i = 0; i <gridSize; i++){   
 
-  for (let i = 0; i <gridSize; i++){
-    for (let b = 0; b <gridSize; b++){
-     
-
-      if (playTimer.isDone){
-        playSynth(grid[i][b]);
-        console.log(grid[i][b]);
-
-      }
-    }
+    // time = 0;
+    notesToPlay.push(grid[0][i]);   
+    playSynth(notesToPlay[i], 0.2);
   }
-
-
-
+  
 }
 
-function playSynth(colorToNote) {
+function playSynth(colorToNote, delayAdd) {
   userStartAudio();
 
   // note velocity (volume, from 0 to 1)
   velocity = random();
   // time from now (in seconds)
-  time = 0.1;
+  time = time += delayAdd;
   // note duration (in seconds)
-  dur = 1/6;
+  dur = 1/4;
 
   monoSynth.play(note[colorToNote], velocity, time, dur);
+  
 }
 
 function mousePressed() {
