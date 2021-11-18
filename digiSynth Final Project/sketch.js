@@ -11,6 +11,9 @@
 let gridSize = 5;
 let grid;
 
+//line control varriables
+let whatLine = 0;
+
 
 //grid display
 let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOrb;
@@ -23,8 +26,7 @@ let time = 0;
 let dur = 1/6;
 let note;
 
-//time
-//let playTimer;
+
 
 function preload(){
    
@@ -55,7 +57,7 @@ function setup() {
   note = [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"];
   velocity = random();
 
-  //playTimer = new Timer(2000);
+  
 }
 
 function draw() {
@@ -71,27 +73,24 @@ function keyPressed(){
   if (key === "r"){
     grid = createRandom2DArray(gridSize, gridSize);
   }
-  if (key === "P"){
-    linePlayer();
-    
-  }
-
   
+
+  //moves linePlayer
+  if (keyCode === 40){
+    whatLine --;
+    //down arrow
+  }
+  if (keyCode === 38){
+    whatLine ++;
+    //up arrow
+  }
+  if (key === "p"){
+    linePlayer();
+    console.log(whatLine);
+  }
 }
 
-//ok so i'll do without
-// class Timer{
-//   constructor(waitTime){
-//     this.startTime = millis();
-//     this.waitTime  = waitTime;
-//   }
-//   isDone(){
-//     return millis() > this.waitTime + this.startTime;
-//   }
-//   reset(){  
-//     this.startTime = millis();
-//   }
-// }
+
 function linePlayer(){
   // reads the first line of the grid and plays the notes seperately
   // without changing the tiles
@@ -99,7 +98,7 @@ function linePlayer(){
   for (let i = 0; i <gridSize; i++){   
 
     // time = 0;
-    notesToPlay.push(grid[0][i]);   
+    notesToPlay.push(grid[whatLine][i]);   
     playSynth(notesToPlay[i], 0.2);
   }
   
