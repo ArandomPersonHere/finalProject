@@ -27,7 +27,6 @@ let dur = 1/6;
 let note;
 
 
-
 function preload(){
    
   //premade sounds
@@ -126,11 +125,11 @@ function mousePressed() {
 
   //master if/else statement to avoid pain
   if  (grid[cellY][cellX] === 6) {
-    playSynth(grid[cellY][cellX]);
+    playSynth(grid[cellY][cellX],0);
     grid[cellY][cellX]  = 0;
   }
   else{
-    playSynth(grid[cellY][cellX]);
+    playSynth(grid[cellY][cellX], 0);
     grid[cellY][cellX] ++;
   }
   //saved 50 lines
