@@ -98,7 +98,7 @@ function linePlayer(){
   for (let i = 0; i <gridSize; i++){   
 
     // time = 0;
-    notesToPlay.push(grid[whatLine][i]);   
+    notesToPlay.push(grid[0][i]);   
     playSynth(notesToPlay[i], 0.2);
   }
   
