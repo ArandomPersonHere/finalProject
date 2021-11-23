@@ -170,8 +170,12 @@ function displayGrid(){
 
       //make grid icons
       //master statement to avoid pain
-
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
+      
+      textAlign(CENTER, CENTER);
+      fill("Blue");
+      textSize(gridSize*10);
+      text(note[grid[y][x]],x *cellWidth, y *cellHeight);
       // saved 25 lines
     }
   }
