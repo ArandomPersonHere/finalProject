@@ -20,6 +20,13 @@ let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOr
 let monoSynth;
 let gridState = [];
 
+// state changer
+// I'll need a class i think to hold multiple variables
+// it'll need to hold key and display info, possinbly more
+
+// premade sounds
+let mySound = [];
+
 // non-premade sounds
 let velocity;
 let time = 0;
@@ -30,10 +37,10 @@ let note;
 function preload(){
    
   //premade sounds
-  // mysound[1] = loadSound("assets/life.wav");
-  // mysound[2] = loadSound("assets/hjm-tesla_sound_shot.wav");
-  // mysound[3] = loadSound("assets/loseSound.wav");
-  // mysound[4] = loadSound("assets/pcp.ogg");
+  mySound[1] = loadSound("assets/life.wav");
+  mySound[2] = loadSound("assets/hjm-tesla_sound_shot.wav");
+  mySound[3] = loadSound("assets/loseSound.wav");
+  mySound[4] = loadSound("assets/pcp.ogg");
 
   //images and icons
   whiteOrb = loadImage("assets/Lightless.png");
@@ -60,30 +67,30 @@ function setup() {
 }
 
 function draw() {
-  //background("green");
+  
   displayGrid();
 
 }
 
 function keyPressed(){
-  if (key === "e"){
+  if (key === "e" ||key === "E" ){
     grid = createEmpty2DArray(gridSize, gridSize);
   }
-  if (key === "r"){
+  if (key === "r"|| key === "R" ){
     grid = createRandom2DArray(gridSize, gridSize);
   }
   
 
-  //moves linePlayer
+  // should move linePlayer
   if (keyCode === 40){
     whatLine --;
-    //down arrow
+    //Down Arrow
   }
   if (keyCode === 38){
     whatLine ++;
-    //up arrow
+    //Up Arrow
   }
-  if (key === "p"){
+  if (key === "p"|| key === "P" ){
     linePlayer();
     console.log(whatLine);
   }
@@ -150,15 +157,20 @@ function displayGrid(){
     greyOrb, 
     swirlOrb, 
     reallyWhiteOrb
-  ]; 
+  ];
   
   let cellWidth = width/gridSize;
   let cellHeight = height/gridSize;
 
   for (let y = 0; y<gridSize; y++){
     for (let x = 0; x<gridSize; x++){
+      
+
+      // saved 25 lines
+
       //make grid icons
       //master statement to avoid pain
+
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
       // saved 25 lines
     }
