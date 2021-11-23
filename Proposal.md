@@ -5,11 +5,13 @@
  I am planning go make an adjustable array of different sequential notes(prolly C scale for ease of use and sanity), that you can try out different chords and sequences with. Basically a digital chord synth. 
  
  ## Must have List
- 
+ // audio goals
   - a horizontal AutoPlay Function 
      (plays notes left to right in the grid)
   - a vertical chord function 
      (plays all notes in a collum simultaniously)
+     
+ // visual goals
   - icons corresponding to notes
      (eg; an E would display E, a Gb would display Gb)
   - a way to change Key (cause C is easy yet boring)
