@@ -43,7 +43,7 @@ function preload(){
   mySound[4] = loadSound("assets/pcp.ogg");
 
   //images and icons
-  whiteOrb = loadImage("assets/Lightless.png");
+  whiteOrb = loadImage("assets/Lightless.png"); 
   yellowOrb = loadImage("assets/Flameless.png");
   blueOrb = loadImage("assets/BlueOrb.png");
   greenOrb = loadImage("assets/greenOrb.png");
@@ -132,8 +132,11 @@ function mousePressed() {
 
   //master if/else statement to avoid pain
   if  (grid[cellY][cellX] === 6) {
+    fill("green");
+    rect(grid[cellY][cellX]);
     playSynth(grid[cellY][cellX],0);
     grid[cellY][cellX]  = 0;
+    fill("blue");
   }
   else{
     playSynth(grid[cellY][cellX], 0);
@@ -150,13 +153,7 @@ function mousePressed() {
 
 function displayGrid(){
   let myOrbs = [
-    whiteOrb,
-    yellowOrb,
-    greenOrb, 
-    blueOrb, 
-    greyOrb, 
-    swirlOrb, 
-    reallyWhiteOrb
+    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb
   ];
   
   let cellWidth = width/gridSize;
@@ -164,21 +161,20 @@ function displayGrid(){
 
   for (let y = 0; y<gridSize; y++){
     for (let x = 0; x<gridSize; x++){
-      
-
       // saved 25 lines
 
       //make grid icons
       //master statement to avoid pain
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
       
-      textAlign(CENTER, CENTER);
+      textAlign(CENTER, LEFT);
       fill("Blue");
       textSize(gridSize*10);
       text(note[grid[y][x]],x *cellWidth, y *cellHeight);
       // saved 25 lines
     }
   }
+  //owo ^w^ T^T '_' :D o~('-')~o B-) 
 }
 
 function createRandom2DArray(rows,cols, numToFill = 0){
@@ -188,13 +184,12 @@ function createRandom2DArray(rows,cols, numToFill = 0){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 1, 2, 3, 4, 5, 6];
+      let possNotes = [0, 0, 1, 2, 2, 3, 4, 5, 6];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
 
     }
-    
   }
   return grid;
 }
