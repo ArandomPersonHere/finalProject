@@ -105,7 +105,7 @@ function linePlayer(){
 
     // time = 0;
     notesToPlay.push(grid[0][i]);   
-    playSynth(notesToPlay[i], 0.2);
+    playSynth(notesToPlay[i], 0.02);
   }
   
 }
@@ -167,9 +167,9 @@ function displayGrid(){
       //master statement to avoid pain
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
       
-      textAlign(CENTER, LEFT);
+      textAlign(x *cellWidth + 50, y *cellHeight +50);
       fill("Blue");
-      textSize(cellWidth/2);
+      textSize(cellWidth/10, cellHeight/10);
       text(note[grid[y][x]],x *cellWidth, y *cellHeight);
       // saved 25 lines
     }
