@@ -116,11 +116,11 @@ function playSynth(colorToNote, delayAdd) {
   // note velocity (volume, from 0 to 1)
   velocity = random();
   // time from now (in seconds)
-  time = time += delayAdd;
+  let myTime = time += delayAdd;
   // note duration (in seconds)
   dur = 1/4;
 
-  monoSynth.play(note[colorToNote], velocity, time, dur);
+  monoSynth.play(note[colorToNote], velocity, myTime, dur);
   
 }
 
@@ -169,7 +169,7 @@ function displayGrid(){
       
       textAlign(CENTER, LEFT);
       fill("Blue");
-      textSize(gridSize*10);
+      textSize(cellWidth/2);
       text(note[grid[y][x]],x *cellWidth, y *cellHeight);
       // saved 25 lines
     }
