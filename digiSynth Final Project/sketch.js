@@ -31,8 +31,11 @@ let mySound = [];
 let velocity;
 let time = 0;
 let dur = 1/6;
-let note;
+let note = [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"];
 
+let keyNote = new Map();
+keyNote.set("scaleC", [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"]);
+keyNote.set("scaleBb",[ "A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]);
 
 function preload(){
    
@@ -60,7 +63,9 @@ function setup() {
 
   monoSynth = new p5.PolySynth();
   // a simple C scale with C4 = 0
-  note = [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"];
+  
+ 
+  
   velocity = random();
 
   
@@ -120,8 +125,8 @@ function playSynth(colorToNote, delayAdd) {
   // note duration (in seconds)
   dur = 1/4;
 
-  monoSynth.play(note[colorToNote], velocity, myTime, dur);
-  
+  monoSynth.play(keyNote.get("scaleC", [colorToNote]), velocity, myTime, dur);
+  //monoSynth.play(note [colorToNote], velocity, myTime, dur);
 }
 
 function mousePressed() {
@@ -167,9 +172,10 @@ function displayGrid(){
       //master statement to avoid pain
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
       
-      textAlign(x *cellWidth + 50, y *cellHeight +50);
+      textAlign(CENTER,CENTER);
       fill("Blue");
-      textSize(cellWidth/10, cellHeight/10);
+      textSize( cellHeight/10);
+      //text(keyNote.get("scaleC")[grid[y][x]],x *cellWidth, y *cellHeight);
       text(note[grid[y][x]],x *cellWidth, y *cellHeight);
       // saved 25 lines
     }
