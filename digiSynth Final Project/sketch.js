@@ -11,12 +11,13 @@
 let gridSize = 10;
 let grid;
 
+
 //line control varriables
 let whatLine = 0;
 
 
 //grid display
-let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOrb;
+let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOrb,redOrb;
 let monoSynth;
 let gridState = [];
 
@@ -53,22 +54,18 @@ function preload(){
   greyOrb = loadImage("assets/greYOrb.png");
   swirlOrb = loadImage("assets/Empty Orb.png");
   reallyWhiteOrb = loadImage("assets/LightOrb.png");
+  redOrb = loadImage("assets/bloodless.png");
+
 }
 
 function setup() {
   
   createCanvas(windowWidth, windowHeight);
   grid = createEmpty2DArray(gridSize, gridSize);
- 
 
   monoSynth = new p5.PolySynth();
-  // a simple C scale with C4 = 0
-  
- 
   
   velocity = random();
-
-  
 }
 
 function draw() {
@@ -114,15 +111,20 @@ function keyPressed(){
     whatLine ++;
     //Up Arrow
   }
-  if (key === "p"|| key === "P" ){
+  
+  if (key === "p" ){
     linePlayer();
+    console.log(whatLine);
+  }
+  if ( key === "P" ){
+    chordPlayer();
     console.log(whatLine);
   }
 }
 
 
 function linePlayer(){
-  // reads the first line of the grid and plays the notes seperately
+  // reads the first line *horizontal* of the grid and plays the notes seperately
   // without changing the tiles
   let notesToPlay = [];
   for (let i = 0; i <gridSize; i++){   
@@ -132,6 +134,18 @@ function linePlayer(){
     playSynth(notesToPlay[i], 0.02);
   }
   
+}
+
+function chordPlayer(){
+  // takes in a collum of the grid and plays notes 'simultaniously' to make a chord
+  // without changing the tiles
+  let  joy= "_";
+  let chordArray = [];
+
+  for (let i = 0; i<gridSize; i++){
+    chordArray.push(grid[i][0]);   
+    playSynth(chordArray[i], 0);
+  }
 }
 
 function playSynth(colorToNote, delayAdd) {
@@ -157,9 +171,9 @@ function mousePressed() {
   let cellY = Math.floor(mouseY/ cellHeight);
 
   //master if/else statement to avoid pain
-  if  (grid[cellY][cellX] === 6) {
+  if  (grid[cellY][cellX] === 7) {
     fill("green");
-    rect(grid[cellY][cellX]);
+    
     playSynth(grid[cellY][cellX],0);
     grid[cellY][cellX]  = 0;
     fill("blue");
@@ -179,9 +193,8 @@ function mousePressed() {
 
 function displayGrid(){
   let myOrbs = [
-    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb
+    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb
   ];
-  
   let cellWidth = width/gridSize;
   let cellHeight = height/gridSize;
 
@@ -211,7 +224,7 @@ function createRandom2DArray(rows,cols, numToFill = 0){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 2, 3, 4, 5, 6];
+      let possNotes = [0, 0, 1, 2, 2, 3, 4, 5, 6,7];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
