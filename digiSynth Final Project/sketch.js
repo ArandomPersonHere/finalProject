@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 5;
+let gridSize = 10;
 let grid;
 
 //line control varriables
@@ -78,9 +78,28 @@ function draw() {
 }
 
 function keyPressed(){
-  if (key === "e" ||key === "E" ){
+  if (key === "a" ||key === "A" ){
     grid = createEmpty2DArray(gridSize, gridSize);
   }
+  if (key === "b" ||key === "B" ){
+    grid = createEmpty2DArray(gridSize, gridSize,1);
+  }
+  if (key === "c" ||key === "C" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 2);
+  }
+  if (key === "d" ||key === "D" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 3);
+  }
+  if (key === "e" ||key === "E" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 4);
+  }
+  if (key === "f" ||key === "F" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 5);
+  }
+  if (key === "g" ||key === "G" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 6);
+  }
+ 
   if (key === "r"|| key === "R" ){
     grid = createRandom2DArray(gridSize, gridSize);
   }
@@ -117,6 +136,8 @@ function linePlayer(){
 
 function playSynth(colorToNote, delayAdd) {
   userStartAudio();
+  // colorToNote give an int, found in randomArray function in the variable possNotes 
+
 
   // note velocity (volume, from 0 to 1)
   velocity = random();
@@ -125,8 +146,8 @@ function playSynth(colorToNote, delayAdd) {
   // note duration (in seconds)
   dur = 1/4;
 
-  monoSynth.play(keyNote.get("scaleC", [colorToNote]), velocity, myTime, dur);
-  //monoSynth.play(note [colorToNote], velocity, myTime, dur);
+  //monoSynth.play(keyNote.get("scaleC", [colorToNote]), velocity, myTime, dur);
+  monoSynth.play(note [colorToNote], velocity, myTime, dur);
 }
 
 function mousePressed() {
@@ -174,9 +195,9 @@ function displayGrid(){
       
       textAlign(CENTER,CENTER);
       fill("Blue");
-      textSize( cellHeight/10);
+      textSize( cellHeight);
       //text(keyNote.get("scaleC")[grid[y][x]],x *cellWidth, y *cellHeight);
-      text(note[grid[y][x]],x *cellWidth, y *cellHeight);
+      text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       // saved 25 lines
     }
   }
