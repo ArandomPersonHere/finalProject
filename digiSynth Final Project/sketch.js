@@ -14,6 +14,7 @@ let grid;
 
 //line control varriables
 let whatLine = 0;
+let whatColl = 0;
 
 
 //grid display
@@ -70,30 +71,26 @@ function setup() {
 
 function draw() {
   
-  displayGrid();
+  displayGrid(whatLine, whatColl);
 
 }
 
 function keyPressed(){
+
+  //press any named note on the keyboard(upper and lower case) and it will fill the grid
   if (key === "a" ||key === "A" ){
     grid = createEmpty2DArray(gridSize, gridSize);
-  }
-  if (key === "b" ||key === "B" ){
+  }if (key === "b" ||key === "B" ){
     grid = createEmpty2DArray(gridSize, gridSize,1);
-  }
-  if (key === "c" ||key === "C" ){
+  }if (key === "c" ||key === "C" ){
     grid = createEmpty2DArray(gridSize, gridSize, 2);
-  }
-  if (key === "d" ||key === "D" ){
+  }if (key === "d" ||key === "D" ){
     grid = createEmpty2DArray(gridSize, gridSize, 3);
-  }
-  if (key === "e" ||key === "E" ){
+  }if (key === "e" ||key === "E" ){
     grid = createEmpty2DArray(gridSize, gridSize, 4);
-  }
-  if (key === "f" ||key === "F" ){
+  }if (key === "f" ||key === "F" ){
     grid = createEmpty2DArray(gridSize, gridSize, 5);
-  }
-  if (key === "g" ||key === "G" ){
+  }if (key === "g" ||key === "G" ){
     grid = createEmpty2DArray(gridSize, gridSize, 6);
   }
  
@@ -104,17 +101,23 @@ function keyPressed(){
 
   // should move linePlayer
   if (keyCode === 40){
-    whatLine --;
+    if (whatLine !== gridSize){
+      whatLine ++;
+    }
+    console.log(whatLine);
     //Down Arrow
   }
   if (keyCode === 38){
-    whatLine ++;
+    if (whatLine !== 0){
+      whatLine --;
+    }
+    console.log(whatLine);
     //Up Arrow
   }
   
   if (key === "p" ){
-    linePlayer();
-    console.log(whatLine);
+    linePlayer(whatLine);
+    
   }
   if ( key === "P" ){
     chordPlayer();
@@ -123,29 +126,30 @@ function keyPressed(){
 }
 
 
-function linePlayer(){
+function linePlayer(theLine){
   // reads the first line *horizontal* of the grid and plays the notes seperately
   // without changing the tiles
   let notesToPlay = [];
   for (let i = 0; i <gridSize; i++){   
 
     // time = 0;
-    notesToPlay.push(grid[0][i]);   
-    playSynth(notesToPlay[i], 0.02);
+    notesToPlay.push(grid[theLine][i]);   
+    playSynth(notesToPlay[i], 0.2);
   }
-  
+  time = 0;
 }
 
 function chordPlayer(){
   // takes in a collum of the grid and plays notes 'simultaniously' to make a chord
   // without changing the tiles
-  let  joy= "_";
+
   let chordArray = [];
 
   for (let i = 0; i<gridSize; i++){
     chordArray.push(grid[i][0]);   
     playSynth(chordArray[i], 0);
   }
+  time = 0;
 }
 
 function playSynth(colorToNote, delayAdd) {
@@ -162,6 +166,7 @@ function playSynth(colorToNote, delayAdd) {
 
   //monoSynth.play(keyNote.get("scaleC", [colorToNote]), velocity, myTime, dur);
   monoSynth.play(note [colorToNote], velocity, myTime, dur);
+  
 }
 
 function mousePressed() {
@@ -172,11 +177,11 @@ function mousePressed() {
 
   //master if/else statement to avoid pain
   if  (grid[cellY][cellX] === 7) {
-    fill("green");
+    
     
     playSynth(grid[cellY][cellX],0);
     grid[cellY][cellX]  = 0;
-    fill("blue");
+    
   }
   else{
     playSynth(grid[cellY][cellX], 0);
@@ -191,7 +196,7 @@ function mousePressed() {
 
 
 
-function displayGrid(){
+function displayGrid(whatLine, whatColl){
   let myOrbs = [
     whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb
   ];
@@ -205,13 +210,27 @@ function displayGrid(){
       //make grid icons
       //master statement to avoid pain
       image(myOrbs[grid[y][x]],x *cellWidth, y *cellHeight, cellWidth, cellHeight);
-      
       textAlign(CENTER,CENTER);
-      fill("Blue");
-      textSize( cellHeight);
-      //text(keyNote.get("scaleC")[grid[y][x]],x *cellWidth, y *cellHeight);
-      text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+      textSize(cellHeight/2);
+
+      // main note display
+      if ( x !== whatLine && y !== whatColl){
+        fill("Blue");
+        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+      }
+
+      //whatLine display
+      else if (x === whatLine && y!== whatColl){
+        fill("red");
+        text(note[grid[whatLine][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+      }
       // saved 25 lines
+
+      //whatColl display
+      else if (x!== whatLine && y === whatColl){
+        fill("purple");
+        text(note[grid[y][whatColl]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+      }
     }
   }
   //owo ^w^ T^T '_' :D o~('-')~o B-) 
