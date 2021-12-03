@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 5;
+let gridSize = 15;
 let grid;
 
 
