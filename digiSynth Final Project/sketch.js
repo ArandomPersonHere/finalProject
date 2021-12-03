@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 10;
+let gridSize = 5;
 let grid;
 
 
@@ -100,19 +100,35 @@ function keyPressed(){
   
 
   // should move linePlayer
+
+  //Down Arrow
   if (keyCode === 40){
     if (whatLine !== gridSize){
       whatLine ++;
     }
-    console.log(whatLine);
-    //Down Arrow
+   
   }
+
+  //Up Arrow
   if (keyCode === 38){
     if (whatLine !== 0){
       whatLine --;
     }
     console.log(whatLine);
-    //Up Arrow
+  }
+
+  // should move chordPlayer
+  if (keyCode === 39){
+    if (whatColl !== gridSize){
+      whatColl ++;
+    }console.log(whatColl);
+    //right Arrow
+  }
+  if (keyCode === 37){
+    if (whatColl !== 0){
+      whatColl --;
+    }console.log(whatColl);
+    //left Arrow
   }
   
   if (key === "p" ){
@@ -214,26 +230,28 @@ function displayGrid(whatLine, whatColl){
       textSize(cellHeight/2);
 
       // main note display
-      if ( x !== whatLine && y !== whatColl){
+      if ( y !== whatLine && x !== whatColl){
         fill("Blue");
         text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatLine display
-      else if (x === whatLine && y!== whatColl){
+      else if (y === whatLine && x!== whatColl){
         fill("red");
-        text(note[grid[whatLine][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
-      // saved 25 lines
 
       //whatColl display
-      else if (x!== whatLine && y === whatColl){
+      else if (y!== whatLine && x === whatColl){
         fill("purple");
-        text(note[grid[y][whatColl]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+      }
+      else {
+        fill("black");
+        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
     }
   }
-  //owo ^w^ T^T '_' :D o~('-')~o B-) 
 }
 
 function createRandom2DArray(rows,cols, numToFill = 0){
