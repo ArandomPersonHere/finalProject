@@ -15,6 +15,7 @@ let grid;
 //line control varriables
 let whatLine = 0;
 let whatColl = 0;
+ 
 
 
 //grid display
@@ -33,11 +34,17 @@ let mySound = [];
 let velocity;
 let time = 0;
 let dur = 1/6;
-let note = [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"];
+let note = [
+  [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , 
+  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]
+];
+
+// i need a way to change the key
+let Keystate = 1;
 
 let keyNote = new Map();
-keyNote.set("scaleC", [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"]);
-keyNote.set("scaleBb",[ "A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]);
+keyNote.set(0, [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"]);
+keyNote.set(1,[ "A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]);
 
 function preload(){
    
@@ -100,45 +107,39 @@ function keyPressed(){
   
 
   // should move linePlayer
-
   //Down Arrow
   if (keyCode === 40){
     if (whatLine !== gridSize){
       whatLine ++;
     }
-   
-  }
-
-  //Up Arrow
+  } //Up Arrow
   if (keyCode === 38){
     if (whatLine !== 0){
       whatLine --;
     }
-    console.log(whatLine);
-  }
-
-  // should move chordPlayer
-  if (keyCode === 39){
-    if (whatColl !== gridSize){
-      whatColl ++;
-    }console.log(whatColl);
-    //right Arrow
-  }
-  if (keyCode === 37){
-    if (whatColl !== 0){
-      whatColl --;
-    }console.log(whatColl);
-    //left Arrow
   }
   
+  // should move chordPlayer
+  if (keyCode === 39){
+    //right Arrow
+    if (whatColl !== gridSize){
+      whatColl ++;
+    }   
+  }
+  if (keyCode === 37){
+    //left Arrow
+    if (whatColl !== 0){
+      whatColl --;
+    }
+  }
   if (key === "p" ){
     linePlayer(whatLine);
-    
   }
   if ( key === "P" ){
     chordPlayer();
-    console.log(whatLine);
   }
+
+
 }
 
 
@@ -180,8 +181,8 @@ function playSynth(colorToNote, delayAdd) {
   // note duration (in seconds)
   dur = 1/4;
 
-  //monoSynth.play(keyNote.get("scaleC", [colorToNote]), velocity, myTime, dur);
-  monoSynth.play(note [colorToNote], velocity, myTime, dur);
+  //monoSynth.play(keyNote.get(Keystate, [colorToNote]), velocity, myTime, dur);
+  monoSynth.play(note[Keystate][colorToNote], velocity, myTime, dur);
   
 }
 
@@ -232,23 +233,23 @@ function displayGrid(whatLine, whatColl){
       // main note display
       if ( y !== whatLine && x !== whatColl){
         fill("Blue");
-        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatLine display
       else if (y === whatLine && x!== whatColl){
         fill("red");
-        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatColl display
       else if (y!== whatLine && x === whatColl){
         fill("purple");
-        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
       else {
         fill("black");
-        text(note[grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
     }
   }
