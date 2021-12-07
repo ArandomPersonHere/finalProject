@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 15;
+let gridSize = 55;
 let grid;
 
 
@@ -23,10 +23,6 @@ let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOr
 let monoSynth;
 let gridState = [];
 
-// state changer
-// I'll need a class i think to hold multiple variables
-// it'll need to hold key and display info, possinbly more
-
 // premade sounds
 let mySound = [];
 
@@ -35,25 +31,18 @@ let velocity;
 let time = 0;
 let dur = 1/6;
 let note = [
-  [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , 
-  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]
+  [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , //Cscale
+  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"],//Bbmajor
+  ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4"],//C3scale(an octave belov middle C)
+  [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5"], //Fmajor
+  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5"]// bluesScale
 ];
 
 // i need a way to change the key
-let Keystate = 1;
+let keystate = 4;
 
-let keyNote = new Map();
-keyNote.set(0, [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"]);
-keyNote.set(1,[ "A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"]);
 
 function preload(){
-   
-  //premade sounds
-  mySound[1] = loadSound("assets/life.wav");
-  mySound[2] = loadSound("assets/hjm-tesla_sound_shot.wav");
-  mySound[3] = loadSound("assets/loseSound.wav");
-  mySound[4] = loadSound("assets/pcp.ogg");
-
   //images and icons
   whiteOrb = loadImage("assets/Lightless.png"); 
   yellowOrb = loadImage("assets/Flameless.png");
@@ -104,34 +93,44 @@ function keyPressed(){
   if (key === "r"|| key === "R" ){
     grid = createRandom2DArray(gridSize, gridSize);
   }
-  
 
-  // should move linePlayer
-  //Down Arrow
+
+  // moves linePlayer
   if (keyCode === 40){
+    //Down Arrow
     if (whatLine !== gridSize){
       whatLine ++;
     }
-  } //Up Arrow
-  if (keyCode === 38){
+  }if (keyCode === 38){
+    //Up Arrow
     if (whatLine !== 0){
       whatLine --;
     }
   }
-  
-  // should move chordPlayer
+  //  moves chordPlayer
   if (keyCode === 39){
     //right Arrow
     if (whatColl !== gridSize){
       whatColl ++;
     }   
-  }
-  if (keyCode === 37){
+  }if (keyCode === 37){
     //left Arrow
     if (whatColl !== 0){
       whatColl --;
     }
   }
+  if (keyCode === 49){
+    //1
+    if (keystate !== note.length-1){
+      keystate ++;
+    }   
+  }if (keyCode === 50){
+    //2
+    if (keystate !== 0){
+      keystate --;
+    }
+  }
+
   if (key === "p" ){
     linePlayer(whatLine);
   }
@@ -182,7 +181,7 @@ function playSynth(colorToNote, delayAdd) {
   dur = 1/4;
 
   //monoSynth.play(keyNote.get(Keystate, [colorToNote]), velocity, myTime, dur);
-  monoSynth.play(note[Keystate][colorToNote], velocity, myTime, dur);
+  monoSynth.play(note[keystate][colorToNote], velocity, myTime, dur);
   
 }
 
@@ -192,23 +191,16 @@ function mousePressed() {
   let cellX = Math.floor(mouseX/ cellWidth);
   let cellY = Math.floor(mouseY/ cellHeight);
 
-  //master if/else statement to avoid pain
+  //number of different notes can be changed here
   if  (grid[cellY][cellX] === 7) {
-    
-    
     playSynth(grid[cellY][cellX],0);
     grid[cellY][cellX]  = 0;
-    
   }
   else{
     playSynth(grid[cellY][cellX], 0);
     grid[cellY][cellX] ++;
   }
-  //saved 50 lines
-
-
-  //linePlayer?
-  
+  //saved 50 lines 
 }
 
 
@@ -233,23 +225,23 @@ function displayGrid(whatLine, whatColl){
       // main note display
       if ( y !== whatLine && x !== whatColl){
         fill("Blue");
-        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatLine display
       else if (y === whatLine && x!== whatColl){
         fill("red");
-        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatColl display
       else if (y!== whatLine && x === whatColl){
         fill("purple");
-        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
       else {
         fill("black");
-        text(note[Keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
+        text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
     }
   }
@@ -262,7 +254,7 @@ function createRandom2DArray(rows,cols, numToFill = 0){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 2, 3, 4, 5, 6,7];
+      let possNotes = [0, 0, 1, 2, 3,3,3,3,3,3,3, 3, 4, 5, 6,7];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
