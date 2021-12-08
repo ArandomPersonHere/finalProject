@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 55;
+let gridSize = 5;
 let grid;
 
 
@@ -135,13 +135,31 @@ function keyPressed(){
     linePlayer(whatLine);
   }
   if ( key === "P" ){
-    chordPlayer();
+    chordPlayer(whatColl);
   }
 
 
 }
 
 
+function chordLinePlayer(theLine, whatColl){
+
+  let notesToPlay = [];
+  for (let i = 0; i <gridSize; i++){   
+    let chordArray = [];
+
+    for (let b = 0; b<gridSize - whatColl; b++){
+      chordArray.push(grid[i][whatColl]);   
+      playSynth(chordArray[i], 0);
+    }
+    time = 0;
+ 
+ 
+  }
+
+
+
+}
 function linePlayer(theLine){
   // reads the first line *horizontal* of the grid and plays the notes seperately
   // without changing the tiles
@@ -155,14 +173,14 @@ function linePlayer(theLine){
   time = 0;
 }
 
-function chordPlayer(){
+function chordPlayer(whatColl){
   // takes in a collum of the grid and plays notes 'simultaniously' to make a chord
   // without changing the tiles
 
   let chordArray = [];
 
   for (let i = 0; i<gridSize; i++){
-    chordArray.push(grid[i][0]);   
+    chordArray.push(grid[i][whatColl]);   
     playSynth(chordArray[i], 0);
   }
   time = 0;
