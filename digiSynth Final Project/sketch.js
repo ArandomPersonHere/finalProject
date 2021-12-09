@@ -137,28 +137,20 @@ function keyPressed(){
   if ( key === "P" ){
     chordPlayer(whatColl);
   }
+  if ( key === "l" ){
+    chordLinePlayer();
+  }
+
 
 
 }
 
 
-function chordLinePlayer(theLine, whatColl){
-
-  let notesToPlay = [];
-  for (let i = 0; i <gridSize; i++){   
-    let chordArray = [];
-
-    for (let b = 0; b<gridSize - whatColl; b++){
-      chordArray.push(grid[i][whatColl]);   
-      playSynth(chordArray[i], 0);
-    }
-    time = 0;
- 
+function chordLinePlayer(){
+  for (let b = 0; b <gridSize; b++){   
+    chordPlayer(b);
  
   }
-
-
-
 }
 function linePlayer(theLine){
   // reads the first line *horizontal* of the grid and plays the notes seperately
