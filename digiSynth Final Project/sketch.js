@@ -144,6 +144,7 @@ function keyPressed(){
 
 function chordLinePlayer(theLine, whatColl){
 
+<<<<<<< HEAD
   
   for (let i = 0; i <gridSize; i++){   
     let chordArray = [];
@@ -151,6 +152,15 @@ function chordLinePlayer(theLine, whatColl){
     for (let b = 0; b<gridSize; b++){
       chordArray.push(grid[b][i]);   
       playSynth(chordArray[b], 0);
+=======
+  let notesToPlay = [];
+  for (let i = 0; i <gridSize; i++){   
+    let chordArray = [];
+
+    for (let b = 0; b<gridSize - whatColl; b++){
+      chordArray.push(grid[i][whatColl]);   
+      playSynth(chordArray[i], 0);
+>>>>>>> parent of f362bd3 (working on chordlinePlayer)
     }
     time = 0;
  
