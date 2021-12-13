@@ -98,7 +98,7 @@ function keyPressed(){
   // moves linePlayer
   if (keyCode === 40){
     //Down Arrow
-    if (whatLine !== gridSize){
+    if (whatLine < gridSize-1){
       whatLine ++;
     }
   }if (keyCode === 38){
@@ -110,7 +110,7 @@ function keyPressed(){
   //  moves chordPlayer
   if (keyCode === 39){
     //right Arrow
-    if (whatColl !== gridSize){
+    if (whatColl < gridSize-1){
       whatColl ++;
     }   
   }if (keyCode === 37){
@@ -137,29 +137,28 @@ function keyPressed(){
   if ( key === "P" ){
     chordPlayer(whatColl);
   }
-
-
-}
-
-
-function chordLinePlayer(theLine, whatColl){
-
-  
-  for (let i = 0; i <gridSize; i++){   
-    let chordArray = [];
-
-    for (let b = 0; b<gridSize; b++){
-      chordArray.push(grid[b][i]);   
-      playSynth(chordArray[b], 0);
-    }
-    time = 0;
- 
- 
+  if ( key === "Z" ){
+    chordLinePlayer();
   }
 
-
-
 }
+
+
+function chordLinePlayer(){
+  let startcoll = 0;
+  for (let b = 0; b <gridSize; b++){   
+    
+    let chordArray = [];
+    for (let i = 0; i<gridSize; i++){
+    
+      chordArray.push(grid[i][startcoll]);   
+      playSynth(chordArray[i], 0);
+    }  
+    startcoll ++;
+    
+  }
+}
+
 function linePlayer(theLine){
   // reads the first line *horizontal* of the grid and plays the notes seperately
   // without changing the tiles
@@ -173,17 +172,17 @@ function linePlayer(theLine){
   time = 0;
 }
 
-function chordPlayer(whatColl){
+function chordPlayer(collumVar){
   // takes in a collum of the grid and plays notes 'simultaniously' to make a chord
   // without changing the tiles
   let chordArray = [];
 
   for (let i = 0; i<gridSize; i++){
     
-    chordArray.push(grid[whatColl][i]);   
-    playSynth(chordArray,[i]);
+    chordArray.push(grid[i][collumVar]);   
+    playSynth(chordArray[i], 0);
   }  
-  time = 0.5;
+  time = 0;
 }
 
 function playSynth(colorToNote, delayAdd) {
