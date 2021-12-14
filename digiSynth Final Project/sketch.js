@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 5;
+let gridSize = 10;
 let grid;
 
 
@@ -145,16 +145,18 @@ function keyPressed(){
 
 
 function chordLinePlayer(){
-  let startcoll = 0;
-  for (let b = 0; b <gridSize; b++){   
+  whatColl = 0;
+  for (let b = 0; b <15; b++){   
     
     let chordArray = [];
     for (let i = 0; i<gridSize; i++){
     
-      chordArray.push(grid[i][startcoll]);   
+      chordArray.push(grid[i][whatColl]);   
       playSynth(chordArray[i], 0);
-    }  
-    startcoll ++;
+
+    } 
+    time += 1; 
+    whatColl ++;
     
   }
 }
@@ -264,14 +266,14 @@ function displayGrid(whatLine, whatColl){
   }
 }
 
-function createRandom2DArray(rows,cols, numToFill = 0){
+function createRandom2DArray(rows,cols){
   let grid = [];
   for (let y = 0; y<rows; y++){
     grid.push([]);
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 3,3,3,3,3,3,3, 3, 4, 5, 6,7];
+      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
