@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 10;
+let gridSize = 9;
 let grid;
 
 
@@ -35,7 +35,8 @@ let note = [
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"],//Bbmajor
   ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5"], //Fmajor
-  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5"]// bluesScale
+  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5"],// bluesScale
+  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5"]// Bminor pentatonic scale
 ];
 
 // i need a way to change the key
@@ -119,6 +120,7 @@ function keyPressed(){
       whatColl --;
     }
   }
+  // changes the Key
   if (keyCode === 49){
     //1
     if (keystate !== note.length-1){
@@ -130,6 +132,7 @@ function keyPressed(){
       keystate --;
     }
   }
+
 
   if (key === "p" ){
     linePlayer(whatLine);
@@ -145,8 +148,10 @@ function keyPressed(){
 
 
 function chordLinePlayer(){
+  //SHOULD make a loop the size of the grid then play the chord for each collum
+
   whatColl = 0;
-  for (let b = 0; b <15; b++){   
+  for (let b = 0; b <gridSize; b++){   
     
     let chordArray = [];
     for (let i = 0; i<gridSize; i++){
@@ -155,10 +160,13 @@ function chordLinePlayer(){
       playSynth(chordArray[i], 0);
 
     } 
+  
     time += 1; 
-    whatColl ++;
-    
+    if (whatColl < gridSize){
+      whatColl ++;
+    }   
   }
+  time = 0;
 }
 
 function linePlayer(theLine){
