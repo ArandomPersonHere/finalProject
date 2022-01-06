@@ -34,7 +34,7 @@ let velocity;
 let time = 0;
 let dur = 1/6;
 let note = [
-  [ "A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , //Cscale
+  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , //Cscale
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"],//Bbmajor
   ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5"], //Fmajor
@@ -148,8 +148,9 @@ function keyPressed(){
 
 function chordLinePlayer(){
   //max chordsize is 8, if gridsize is more than 8 chords are redused to 5
-
+  let temp = whatColl;
   whatColl = 0;
+  let chordArray = [];
   for (let b = 0; b <gridSize; b++){   
     
     let chordArray = [];
@@ -160,20 +161,28 @@ function chordLinePlayer(){
         playSynth(chordArray[i], 0);
       } 
     }
-    // changes what line the chord st
-    else if(whatLine+5 <=gridSize){
 
+    // changes what line the chord starts to form at 
+    else if(whatLine+5 <=gridSize){
       for (let i = whatLine; i<whatLine+5; i++){
         chordArray.push(grid[i][whatColl]);   
         playSynth(chordArray[i], 0);
       } 
     }
-    time += 1; 
+
+    else{
+      for (let i = 0; i<5; i++){
+        chordArray.push(grid[i][whatColl]);   
+        playSynth(chordArray[i], 0);
+      } 
+    }
+    time += 0.5; 
     if (whatColl < gridSize){
       whatColl ++;
     }   
   }
   time = 0;
+  whatColl = temp;
 }
 
 function linePlayer(theLine){
@@ -213,7 +222,7 @@ function playSynth(colorToNote, delayAdd) {
   let myTime = time += delayAdd;
   // note duration (in seconds)
   dur = 1/4;
-
+  
   //monoSynth.play(keyNote.get(Keystate, [colorToNote]), velocity, myTime, dur);
   monoSynth.play(note[keystate][colorToNote], velocity, myTime, dur);
   
@@ -288,7 +297,7 @@ function createRandom2DArray(rows,cols){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7];
+      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7, 8];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
