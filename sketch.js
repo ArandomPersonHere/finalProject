@@ -4,22 +4,25 @@
 // 2 - simultainiously play audio files in a collum
 // 3 - have an auto play feature that visually dispays what collum it's playing
 
-//const { PolySynth } = require("p5");
+
 
 
 //grid sizes 
-let gridSize = 9;
+let gridSize = 18;
 let grid;
 
 
 //line control varriables
 let whatLine = 0;
 let whatColl = 0;
- 
+
+// i need a way to change the key
+let keystate = 4;
+
 
 
 //grid display
-let whiteOrb, yellowOrb, greenOrb,  blueOrb,  greyOrb,  swirlOrb,  reallyWhiteOrb,redOrb;
+let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb;
 let monoSynth;
 let gridState = [];
 
@@ -39,8 +42,6 @@ let note = [
   [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5"]// Bminor pentatonic scale
 ];
 
-// i need a way to change the key
-let keystate = 4;
 
 
 function preload(){
@@ -67,9 +68,7 @@ function setup() {
 }
 
 function draw() {
-  
   displayGrid(whatLine, whatColl);
-
 }
 
 function keyPressed(){
@@ -148,19 +147,27 @@ function keyPressed(){
 
 
 function chordLinePlayer(){
-  //SHOULD make a loop the size of the grid then play the chord for each collum
+  //max chordsize is 8, if gridsize is more than 8 chords are redused to 5
 
   whatColl = 0;
   for (let b = 0; b <gridSize; b++){   
     
     let chordArray = [];
-    for (let i = 0; i<gridSize; i++){
     
-      chordArray.push(grid[i][whatColl]);   
-      playSynth(chordArray[i], 0);
+    if (gridSize<9){
+      for (let i = 0; i<gridSize; i++){
+        chordArray.push(grid[i][whatColl]);   
+        playSynth(chordArray[i], 0);
+      } 
+    }
+    // changes what line the chord st
+    else if(whatLine+5 <=gridSize){
 
-    } 
-  
+      for (let i = whatLine; i<whatLine+5; i++){
+        chordArray.push(grid[i][whatColl]);   
+        playSynth(chordArray[i], 0);
+      } 
+    }
     time += 1; 
     if (whatColl < gridSize){
       whatColl ++;
