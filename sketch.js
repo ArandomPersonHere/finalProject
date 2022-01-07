@@ -34,7 +34,8 @@ let velocity;
 let time = 0;
 let dur = 1/6;
 let note = [
-  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] , //Cscale
+  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] ,  //Cscale
+
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"],//Bbmajor
   ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5"], //Fmajor
@@ -124,6 +125,7 @@ function keyPressed(){
     //1
     if (keystate !== note.length-1){
       keystate ++;
+      keyDisplay(thekey)
     }   
   }if (keyCode === 50){
     //2
@@ -144,7 +146,10 @@ function keyPressed(){
   }
 
 }
-
+function keyDisplay(thekey){
+  fill(255, 0, 200, 100);
+  rect(windowWidth/3, windowHeight/4, windowWidth/3, windowHeight/4);
+}
 
 function chordLinePlayer(){
   //max chordsize is 8, if gridsize is more than 8 chords are redused to 5
