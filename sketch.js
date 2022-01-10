@@ -18,11 +18,11 @@ let whatColl = 0;
 
 // i need a way to change the key
 let keystate = 4;
-
-
+let keyAlpha = 0;
+let keyfading = false;
 
 //grid display
-let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb;
+let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
 let monoSynth;
 let gridState = [];
 
@@ -55,7 +55,7 @@ function preload(){
   swirlOrb = loadImage("assets/Empty Orb.png");
   reallyWhiteOrb = loadImage("assets/LightOrb.png");
   redOrb = loadImage("assets/bloodless.png");
-
+  keyOrb = loadImage("assets/Ecto Orb.png");
 }
 
 function setup() {
@@ -69,8 +69,11 @@ function setup() {
 }
 
 function draw() {
-  displayGrid(whatLine, whatColl);
+  displayGrid(whatLine, whatColl); 
+  keyDisplay();
+  
 }
+
 
 function keyPressed(){
 
@@ -125,7 +128,9 @@ function keyPressed(){
     //1
     if (keystate !== note.length-1){
       keystate ++;
-      keyDisplay(thekey)
+      keyAlpha = 255;
+      keyfading = true;
+      keyDisplay();
     }   
   }if (keyCode === 50){
     //2
@@ -146,10 +151,21 @@ function keyPressed(){
   }
 
 }
-function keyDisplay(thekey){
-  fill(255, 0, 200, 100);
-  rect(windowWidth/3, windowHeight/4, windowWidth/3, windowHeight/4);
+function keyDisplay(){
+  tint(255, keyAlpha);
+  image(keyOrb, windowWidth/2,windowHeight/4,200,100);
+
+ 
+  if (keyfading){
+    keyAlpha--;
+    if (keyAlpha <=0){
+      keyfading = false;
+    }
+  }
+
+ 
 }
+
 
 function chordLinePlayer(){
   //max chordsize is 8, if gridsize is more than 8 chords are redused to 5
@@ -250,8 +266,6 @@ function mousePressed() {
   }
   //saved 50 lines 
 }
-
-
 
 function displayGrid(whatLine, whatColl){
   let myOrbs = [
