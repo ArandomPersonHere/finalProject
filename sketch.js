@@ -70,7 +70,7 @@ function setup() {
 
 function draw() {
   displayGrid(whatLine, whatColl); 
-  keyDisplay();
+  
   
 }
 
@@ -157,7 +157,7 @@ function keyDisplay(){
 
  
   if (keyfading){
-    keyAlpha--;
+    keyAlpha-=5;
     if (keyAlpha <=0){
       keyfading = false;
     }
