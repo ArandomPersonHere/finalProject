@@ -16,10 +16,10 @@ let grid;
 let whatLine = 0;
 let whatColl = 0;
 
-// i need a way to change the key
+// i need a way to change+ display the key
 let keystate = 4;
 let keyAlpha = 0;
-let keyfading = false;
+let keyOnScreen= false;
 
 //grid display
 let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
@@ -34,13 +34,13 @@ let velocity;
 let time = 0;
 let dur = 1/6;
 let note = [
-  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"] ,  //Cscale
+  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 max9"] ,  //Cscale
 
-  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5"],//Bbmajor
-  ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4"],//C3scale(an octave belov middle C)
-  [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5"], //Fmajor
-  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5"],// bluesScale
-  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5"]// Bminor pentatonic scale
+  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5 max9"],//Bbmajor
+  ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
+  [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5 max9"], //Fmajor
+  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5", "bluesScale, C4 to F#5 max9"],// bluesScale
+  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5"]// Bminor pentatonic scale
 ];
 
 
@@ -70,8 +70,6 @@ function setup() {
 
 function draw() {
   displayGrid(whatLine, whatColl); 
-  
-  
 }
 
 
@@ -128,8 +126,7 @@ function keyPressed(){
     //1
     if (keystate !== note.length-1){
       keystate ++;
-      keyAlpha = 255;
-      keyfading = true;
+      
       keyDisplay();
     }   
   }if (keyCode === 50){
@@ -137,33 +134,33 @@ function keyPressed(){
     if (keystate !== 0){
       keystate --;
     }
+    if (keyCode === 51){
+      //3
+      if (keyOnScreen){
+        keyDisplay();
+      }
+
+    }   
   }
 
-
+  // adjusts lineplayer
   if (key === "p" ){
     linePlayer(whatLine);
   }
+  //adjusts chordplayer
   if ( key === "P" ){
     chordPlayer(whatColl);
   }
   if ( key === "Z" ){
     chordLinePlayer();
   }
-
 }
-function keyDisplay(){
-  tint(255, keyAlpha);
-  image(keyOrb, windowWidth/2,windowHeight/4,200,100);
-
- 
-  if (keyfading){
-    keyAlpha-=5;
-    if (keyAlpha <=0){
-      keyfading = false;
-    }
-  }
-
- 
+function  keyDisplay(){
+  let xSize = 200;
+  let ySize = 50;
+  image(keyOrb, windowWidth/2-xSize, windowHeight/4-ySize, xSize, ySize);
+  textAlign(CENTER,CENTER);
+  text(note[keystate][keystate.length],windowWidth/2-xSize, windowHeight/4-ySize, xSize, ySize);
 }
 
 
@@ -271,8 +268,8 @@ function displayGrid(whatLine, whatColl){
   let myOrbs = [
     whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb
   ];
-  let cellWidth = width/gridSize;
-  let cellHeight = height/gridSize;
+  let cellWidth = windowWidth/gridSize;
+  let cellHeight = windowHeight/gridSize;
 
   for (let y = 0; y<gridSize; y++){
     for (let x = 0; x<gridSize; x++){
@@ -316,7 +313,7 @@ function createRandom2DArray(rows,cols){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7, 8];
+      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
