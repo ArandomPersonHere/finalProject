@@ -19,7 +19,8 @@ let whatColl = 0;
 // i need a way to change+ display the key
 let keystate = 4;
 let keyAlpha = 0;
-let keyOnScreen= false;
+let keyOnScreen = true;
+let instructionsOnScreen = true;
 
 //grid display
 let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
@@ -37,7 +38,7 @@ let note = [
   ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 max9"] ,  //Cscale
 
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5 max9"],//Bbmajor
-  ["A3","B3", "C3", "D3", "E3","F3", "G3","A3", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
+  ["A3","B3", "C3", "D3", "E3","F3", "G3","A4", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5 max9"], //Fmajor
   [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5", "bluesScale, C4 to F#5 max9"],// bluesScale
   [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5"]// Bminor pentatonic scale
@@ -70,6 +71,7 @@ function setup() {
 
 function draw() {
   displayGrid(whatLine, whatColl); 
+  keyDisplay(note);
 }
 
 
@@ -126,23 +128,19 @@ function keyPressed(){
     //1
     if (keystate !== note.length-1){
       keystate ++;
-      
-      keyDisplay();
     }   
   }if (keyCode === 50){
     //2
     if (keystate !== 0){
       keystate --;
-    }
-    if (keyCode === 51){
-      //3
-      if (keyOnScreen){
-        keyDisplay();
-      }
-
-    }   
-  }
-
+    } 
+  }//displays the Key
+  if (keyCode === 51){
+    //3
+    console.log("hya");
+    keyOnScreen = !keyOnScreen;
+    console.log(keyOnScreen);
+  }   
   // adjusts lineplayer
   if (key === "p" ){
     linePlayer(whatLine);
@@ -154,13 +152,26 @@ function keyPressed(){
   if ( key === "Z" ){
     chordLinePlayer();
   }
+
+  //makes the info screen come up & off
+  if (key === "h"|| key === "i" || key === "H"|| key === "I" ){
+    instructionsOnScreen = !instructionsOnScreen;
+  }
 }
-function  keyDisplay(){
+function  keyDisplay(note){
+  
   let xSize = 200;
-  let ySize = 50;
-  image(keyOrb, windowWidth/2-xSize, windowHeight/4-ySize, xSize, ySize);
-  textAlign(CENTER,CENTER);
-  text(note[keystate][keystate.length],windowWidth/2-xSize, windowHeight/4-ySize, xSize, ySize);
+  let ySize = 150;
+  if (keyOnScreen){
+    image(keyOrb, 0, windowHeight/4-ySize/2, windowWidth, ySize);
+    textSize(50);
+    text(note[keystate][10], windowWidth/2, windowHeight/4);
+  }
+  if (instructionsOnScreen){
+    image(keyOrb, 0, 0, windowWidth, windowHeight);
+    textSize(50);
+    text(note[keystate][10], windowWidth/2, windowHeight/4);
+  }
 }
 
 
