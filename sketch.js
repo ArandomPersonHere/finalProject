@@ -23,7 +23,7 @@ let keyOnScreen = true;
 let instructionsOnScreen = true;
 
 //grid display
-let whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
+let infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
 let monoSynth;
 let gridState = [];
 
@@ -57,6 +57,8 @@ function preload(){
   reallyWhiteOrb = loadImage("assets/LightOrb.png");
   redOrb = loadImage("assets/bloodless.png");
   keyOrb = loadImage("assets/Ecto Orb.png");
+  infoBackground = loadImage("assets/tvBackground.jpg");
+
 }
 
 function setup() {
@@ -100,46 +102,38 @@ function keyPressed(){
 
 
   // moves linePlayer
-  if (keyCode === 40){
-    //Down Arrow
+  if (keyCode === 40){ //Down Arrow
     if (whatLine < gridSize-1){
       whatLine ++;
     }
-  }if (keyCode === 38){
-    //Up Arrow
+  }if (keyCode === 38){ //Up Arrow
     if (whatLine !== 0){
       whatLine --;
     }
   }
   //  moves chordPlayer
-  if (keyCode === 39){
-    //right Arrow
+  if (keyCode === 39){//right Arrow
     if (whatColl < gridSize-1){
       whatColl ++;
     }   
-  }if (keyCode === 37){
-    //left Arrow
+  }if (keyCode === 37){ //left Arrow
     if (whatColl !== 0){
       whatColl --;
     }
   }
   // changes the Key
-  if (keyCode === 49){
-    //1
+  if (keyCode === 49){//1
     if (keystate !== note.length-1){
       keystate ++;
     }   
-  }if (keyCode === 50){
-    //2
+  }if (keyCode === 50){//2
     if (keystate !== 0){
       keystate --;
     } 
-  }//displays the Key
-  if (keyCode === 51){
-    //3
-    console.log("hya");
+  }
+  //displays the Key
+  if (keyCode === 51){//3
     keyOnScreen = !keyOnScreen;
-    console.log(keyOnScreen);
   }   
   // adjusts lineplayer
   if (key === "p" ){
@@ -158,19 +152,37 @@ function keyPressed(){
     instructionsOnScreen = !instructionsOnScreen;
   }
 }
+
 function  keyDisplay(note){
   
-  let xSize = 200;
   let ySize = 150;
   if (keyOnScreen){
     image(keyOrb, 0, windowHeight/4-ySize/2, windowWidth, ySize);
-    textSize(50);
+    textSize(windowWidth/10);
     text(note[keystate][10], windowWidth/2, windowHeight/4);
   }
   if (instructionsOnScreen){
-    image(keyOrb, 0, 0, windowWidth, windowHeight);
-    textSize(50);
-    text(note[keystate][10], windowWidth/2, windowHeight/4);
+    
+    image(infoBackground, 0, 0, windowWidth, windowHeight);
+    //header text
+    textSize(windowWidth/20);
+    textStyle(BOLD);
+    textFont("Georgia");
+    text("Caleb's Digital Synthisizer", windowWidth/2, windowHeight/5);
+
+    //other text
+    fill("black");
+    textSize(windowWidth/36);
+    textFont("Times New Roman");
+    text("Here are the Controls:", windowWidth/4, windowHeight/3);
+    text("Click on any Orb, and change the Note", windowWidth/2, windowHeight/2.5);
+
+    text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
+    text("r will Randomise the grid, while 1 & 2 will change the Key", windowWidth/2, windowHeight/1.7);
+    text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
+    text("CASE Sensitive, P will play the selected Collum and arrows adjust Collums", windowWidth/2, windowHeight/1.35);
+    text("Z will play chords across the grid", windowWidth/2, windowHeight/1.27);
+
   }
 }
 
@@ -262,15 +274,17 @@ function mousePressed() {
   let cellHeight = height/gridSize;
   let cellX = Math.floor(mouseX/ cellWidth);
   let cellY = Math.floor(mouseY/ cellHeight);
-
-  //number of different notes can be changed here
-  if  (grid[cellY][cellX] === 7) {
-    playSynth(grid[cellY][cellX],0);
-    grid[cellY][cellX]  = 0;
-  }
-  else{
-    playSynth(grid[cellY][cellX], 0);
-    grid[cellY][cellX] ++;
+  //will pause for infoscreen
+  if (!instructionsOnScreen){
+    //number of different notes can be changed here
+    if  (grid[cellY][cellX] === 7) {
+      playSynth(grid[cellY][cellX],0);
+      grid[cellY][cellX]  = 0;
+    }
+    else{
+      playSynth(grid[cellY][cellX], 0);
+      grid[cellY][cellX] ++;
+    }
   }
   //saved 50 lines 
 }
@@ -294,23 +308,26 @@ function displayGrid(whatLine, whatColl){
 
       // main note display
       if ( y !== whatLine && x !== whatColl){
-        fill("Blue");
+        fill("Black");
         text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatLine display
       else if (y === whatLine && x!== whatColl){
         fill("red");
+        textStyle(BOLD);
         text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
 
       //whatColl display
       else if (y!== whatLine && x === whatColl){
         fill("purple");
+        textStyle(BOLD);
         text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
       else {
         fill("black");
+        textStyle(BOLD);
         text(note[keystate][grid[y][x]],x *cellWidth + cellWidth/2, y *cellHeight + cellHeight/2);
       }
     }
