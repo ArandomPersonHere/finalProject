@@ -19,8 +19,9 @@ let whatColl = 0;
 // i need a way to change+ display the key
 let keystate = 4;
 let keyAlpha = 0;
-let keyOnScreen = true;
+
 let instructionsOnScreen = true;
+let helpQue = true;
 
 //grid display
 let infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
@@ -80,22 +81,10 @@ function draw() {
 function keyPressed(){
 
   //press any named note on the keyboard(upper and lower case) and it will fill the grid
-  if (key === "a" ||key === "A" ){
-    grid = createEmpty2DArray(gridSize, gridSize);
-  }if (key === "b" ||key === "B" ){
-    grid = createEmpty2DArray(gridSize, gridSize,1);
-  }if (key === "c" ||key === "C" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 2);
-  }if (key === "d" ||key === "D" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 3);
-  }if (key === "e" ||key === "E" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 4);
-  }if (key === "f" ||key === "F" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 5);
-  }if (key === "g" ||key === "G" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 6);
-  }
  
+  if (key === "e" ||key === "E" ){
+    grid = createEmpty2DArray(gridSize, gridSize, 1);
+  }
   if (key === "r"|| key === "R" ){
     grid = createRandom2DArray(gridSize, gridSize);
   }
@@ -131,36 +120,38 @@ function keyPressed(){
       keystate --;
     } 
   }
-  //displays the Key
-  if (keyCode === 51){//3
-    keyOnScreen = !keyOnScreen;
-  }   
+   
   // adjusts lineplayer
-  if (key === "p" ){
+  if (key === "l" || key === "L" ){
     linePlayer(whatLine);
   }
   //adjusts chordplayer
-  if ( key === "P" ){
+  if ( key === "c" ||key === "C"){
     chordPlayer(whatColl);
   }
-  if ( key === "Z" ){
+  if ( key === "Z"||key === "z" ){
     chordLinePlayer();
   }
 
   //makes the info screen come up & off
-  if (key === "h"|| key === "i" || key === "H"|| key === "I" ){
+  if (key === "h"||key === "H"){
     instructionsOnScreen = !instructionsOnScreen;
+  }
+  if (key === "i" ||key === "I"){
+    helpQue = !helpQue;
   }
 }
 
 function  keyDisplay(note){
   
   let ySize = 150;
-  if (keyOnScreen){
-    image(keyOrb, 0, windowHeight/4-ySize/2, windowWidth, ySize);
+  
+  if (helpQue){
+    image(keyOrb, 0, windowHeight - ySize, windowWidth/5, ySize);
     textSize(windowWidth/15);
-    text(note[keystate][10], windowWidth/2, windowHeight/4);
+    text("Press h for Help screen", windowWidth/2, windowHeight/4);
   }
+
   if (instructionsOnScreen){
     
     image(infoBackground, 0, 0, windowWidth, windowHeight);
@@ -176,11 +167,11 @@ function  keyDisplay(note){
     textFont("Times New Roman");
     text("Here are the Controls:", windowWidth/4, windowHeight/3);
     text("Click on any Orb, and change the Note", windowWidth/2, windowHeight/2.5);
-
+    text(note[keystate][10], windowWidth/2, windowHeight/4);
     text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
     text("r will Randomise the grid, while 1 & 2 will change the Key, 3 to see", windowWidth/2, windowHeight/1.7);
     text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
-    text("CASE Sensitive, P will play the selected Collum and arrows adjust Collums", windowWidth/2, windowHeight/1.35);
+    text("CASE Sensitive, P will play the selected Column and arrows adjust Columns", windowWidth/2, windowHeight/1.35);
     text("Z will play chords across the grid", windowWidth/2, windowHeight/1.27);
 
   }

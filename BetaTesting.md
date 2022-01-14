@@ -1,25 +1,18 @@
-# Major Project Proposal
+# Major Project beta testing
 
  ## Decsription
  
- I am planning go make an adjustable array of different sequential notes(prolly C scale for ease of use and sanity), that you can try out different chords and sequences with. Basically a digital chord synth. 
- 
- ## Must have List
- // audio goals
-  - A horizontal AutoPlay Function 
-     (plays notes left to right in the grid)
-  - A vertical chord function 
-     (plays all notes in a collum simultaniously)
-     
- // visual goals
-  - Icons corresponding to notes
-     (eg; an E would display E, a Gb would display Gb)
-  - A way to change Key (cause C is easy yet boring)
-     (using either keyboard or an on screen button, might reset the board :0) 
-  - A help or Info screen
-     (because having to memorize random letters would suck)
+this will compile any complaints, suggestions, and adjustments made conserning the code during beta testing
+ ## beta tester #1 Mx. Walker
+ - help Screen is unclear(very)
+ - how to exit help screen is not displayed
+ - column is misspelled in code
 
-## nice to have List 
+ - General Suggestion: 
+    clairify help Screen
+ 
+
+## beta tester #2 
  
  - some sort of compatible chordSequence function 
  - a visual indicator of what's playing at the time
