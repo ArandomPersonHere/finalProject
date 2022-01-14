@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 18;
+let gridSize = 10;
 let grid;
 
 
@@ -158,7 +158,7 @@ function  keyDisplay(note){
   let ySize = 150;
   if (keyOnScreen){
     image(keyOrb, 0, windowHeight/4-ySize/2, windowWidth, ySize);
-    textSize(windowWidth/10);
+    textSize(windowWidth/15);
     text(note[keystate][10], windowWidth/2, windowHeight/4);
   }
   if (instructionsOnScreen){
@@ -178,7 +178,7 @@ function  keyDisplay(note){
     text("Click on any Orb, and change the Note", windowWidth/2, windowHeight/2.5);
 
     text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
-    text("r will Randomise the grid, while 1 & 2 will change the Key", windowWidth/2, windowHeight/1.7);
+    text("r will Randomise the grid, while 1 & 2 will change the Key, 3 to see", windowWidth/2, windowHeight/1.7);
     text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
     text("CASE Sensitive, P will play the selected Collum and arrows adjust Collums", windowWidth/2, windowHeight/1.35);
     text("Z will play chords across the grid", windowWidth/2, windowHeight/1.27);
