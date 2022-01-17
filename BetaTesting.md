@@ -12,13 +12,14 @@ this will compile any complaints, suggestions, and adjustments made conserning t
     clairify help Screen
  
 
-## beta tester #2 
+## beta tester #2  Quinton
  
- - some sort of compatible chordSequence function 
- - a visual indicator of what's playing at the time
-     (change in color? a moving line? something like that idk)
- - premade chords to choose
-     (eg: if you pressed "G" then you get a Gmajor chord on a collum)
- - also nice would be able to choose where on the grid the chord apears in the grid
+ - disable L C and Z when on help screen
+ - claifify 'I' & 'h'
+ - clairify key changes & number of keys
+
+ Pros
+ - no super major glitches
+ - worked as intended
 
 

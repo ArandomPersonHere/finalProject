@@ -22,6 +22,8 @@ let keyAlpha = 0;
 
 let instructionsOnScreen = true;
 let helpQue = true;
+//let infoColor = [random(255),random(255), random(255)];
+
 
 //grid display
 let explanationsIm, infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
@@ -137,6 +139,7 @@ function keyPressed(){
   //makes the info screen come up & off
   if (key === "h"||key === "H"){
     instructionsOnScreen = !instructionsOnScreen;
+  
   }
   if (key === "i" ||key === "I"){
     helpQue = !helpQue;
@@ -148,9 +151,10 @@ function  keyDisplay(note){
   let ySize = 150;
   
   if (helpQue){
-    image(keyOrb, 0, windowHeight - ySize, windowWidth/5, ySize);
-    textSize(windowWidth/15);
-    text("Press h for Help screen", windowWidth/2, windowHeight/4);
+    image(keyOrb, 0, windowHeight - ySize, windowWidth/2, ySize);
+    textSize(windowWidth/25);
+    fill("purple");
+    text("Press h for Help screen", 0 + windowWidth/4, windowHeight- ySize/2);
   }
 
   if (instructionsOnScreen){
@@ -159,22 +163,23 @@ function  keyDisplay(note){
     //header text
     textSize(windowWidth/20);
     textStyle(BOLD);
+    //fill("blue");
     textFont("Georgia");
     text("Caleb's Digital Synthisizer", windowWidth/2, windowHeight/5);
-
-    //other text
-    fill("black");
-    textSize(windowWidth/36);
-    textFont("Times New Roman");
-    text("Here are the Controls:", windowWidth/4, windowHeight/3);
     image(explanationsIm, windowWidth/4, windowHeight/2.5);
-    text(note[keystate][10], windowWidth/2, windowHeight/4);
-    //text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
-    //text("r will Randomise the grid, while 1 & 2 will change the Key, 3 to see", windowWidth/2, windowHeight/1.7);
-    //text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
-    //text("CASE Sensitive, P will play the selected Column and arrows adjust Columns", windowWidth/2, windowHeight/1.35);
-    text("Now go mess around, Have Fun, the Blues Scale is easiest", windowWidth/2, windowHeight/1.27);
+    //other text
+    textSize(windowWidth/36);
+    fill("black");
+    if (windowHeight>=600 && windowWidth >=250){
+      textFont("Times New Roman");
+      text("Here are the Controls:", windowWidth/4, windowHeight/3+20);
+      text(note[keystate][10], windowWidth/2, windowHeight/4+20);
+      text("Now go mess around, Have Fun, the Blues Scale is easiest", windowWidth/2, windowHeight/1.27);
+    }
+    else{
+      text("Expand window for text", windowWidth/2, windowHeight/4+20);
 
+    }
   }
 }
 
