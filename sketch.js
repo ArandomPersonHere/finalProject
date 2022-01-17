@@ -24,7 +24,7 @@ let instructionsOnScreen = true;
 let helpQue = true;
 
 //grid display
-let infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
+let explanationsIm, infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
 let monoSynth;
 let gridState = [];
 
@@ -59,6 +59,7 @@ function preload(){
   redOrb = loadImage("assets/bloodless.png");
   keyOrb = loadImage("assets/Ecto Orb.png");
   infoBackground = loadImage("assets/tvBackground.jpg");
+  explanationsIm = loadImage("assets/instructions.PNG");
 
 }
 
@@ -166,13 +167,13 @@ function  keyDisplay(note){
     textSize(windowWidth/36);
     textFont("Times New Roman");
     text("Here are the Controls:", windowWidth/4, windowHeight/3);
-    text("Click on any Orb, and change the Note", windowWidth/2, windowHeight/2.5);
+    image(explanationsIm, windowWidth/4, windowHeight/2.5);
     text(note[keystate][10], windowWidth/2, windowHeight/4);
-    text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
-    text("r will Randomise the grid, while 1 & 2 will change the Key, 3 to see", windowWidth/2, windowHeight/1.7);
-    text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
-    text("CASE Sensitive, P will play the selected Column and arrows adjust Columns", windowWidth/2, windowHeight/1.35);
-    text("Z will play chords across the grid", windowWidth/2, windowHeight/1.27);
+    //text("h for Help, or i for Info will bring you here", windowWidth/2, windowHeight/2);
+    //text("r will Randomise the grid, while 1 & 2 will change the Key, 3 to see", windowWidth/2, windowHeight/1.7);
+    //text("CASE Sensitive, p will play the selected Line and arrows adjust Lines", windowWidth/2, windowHeight/1.5);
+    //text("CASE Sensitive, P will play the selected Column and arrows adjust Columns", windowWidth/2, windowHeight/1.35);
+    text("Now go mess around, Have Fun, the Blues Scale is easiest", windowWidth/2, windowHeight/1.27);
 
   }
 }
