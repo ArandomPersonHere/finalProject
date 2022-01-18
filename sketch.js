@@ -53,12 +53,12 @@ function preload(){
   //images and icons
   whiteOrb = loadImage("assets/Lightless.png"); 
   yellowOrb = loadImage("assets/Flameless.png");
-  blueOrb = loadImage("assets/BlueOrb.png");
-  greenOrb = loadImage("assets/greenOrb.png");
+  blueOrb = loadImage("assets/BLueOrb.png");
+  greenOrb = loadImage("assets/GreenOrb.png");
   greyOrb = loadImage("assets/greYOrb.png");
   swirlOrb = loadImage("assets/Empty Orb.png");
   reallyWhiteOrb = loadImage("assets/LightOrb.png");
-  redOrb = loadImage("assets/bloodless.png");
+  redOrb = loadImage("assets/Bloodless.png");
   keyOrb = loadImage("assets/Ecto Orb.png");
   infoBackground = loadImage("assets/tvBackground.jpg");
   explanationsIm = loadImage("assets/instructions.PNG");
