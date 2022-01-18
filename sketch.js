@@ -39,7 +39,7 @@ let time = 0;
 let dur = 1/6;
 let note = [
   ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 max9"] ,  //Cscale
-
+  ["D4", "E4", "F4", "G4", "A5", "Bb5", "C5", "D5", "E5", "F5","Dminor, D4 to F5 max9"], //Dminor
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5 max9"],//Bbmajor
   ["A3","B3", "C3", "D3", "E3","F3", "G3","A4", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5 max9"], //Fmajor
