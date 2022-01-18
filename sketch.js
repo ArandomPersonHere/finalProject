@@ -61,7 +61,7 @@ function preload(){
   redOrb = loadImage("assets/Bloodless.png");
   keyOrb = loadImage("assets/Ecto Orb.png");
   infoBackground = loadImage("assets/tvBackground.jpg");
-  explanationsIm = loadImage("assets/instructions.PNG");
+  explanationsIm = loadImage("assets/infoScreen2.PNG");
 
 }
 
@@ -84,34 +84,55 @@ function draw() {
 function keyPressed(){
 
   //press any named note on the keyboard(upper and lower case) and it will fill the grid
- 
-  if (key === "e" ||key === "E" ){
-    grid = createEmpty2DArray(gridSize, gridSize, 1);
-  }
-  if (key === "r"|| key === "R" ){
-    grid = createRandom2DArray(gridSize, gridSize);
-  }
+  if (!instructionsOnScreen){
+    if (key === "e" ||key === "E" ){
+      grid = createEmpty2DArray(gridSize, gridSize, 1);
+    }
+    if (key === "r"|| key === "R" ){
+      grid = createRandom2DArray(gridSize, gridSize);
+    }
 
 
-  // moves linePlayer
-  if (keyCode === 40){ //Down Arrow
-    if (whatLine < gridSize-1){
-      whatLine ++;
+    // moves linePlayer
+    if (keyCode === 40){ //Down Arrow
+      if (whatLine < gridSize-1){
+        whatLine ++;
+      }
+    }if (keyCode === 38){ //Up Arrow
+      if (whatLine !== 0){
+        whatLine --;
+      }
     }
-  }if (keyCode === 38){ //Up Arrow
-    if (whatLine !== 0){
-      whatLine --;
+    //  moves chordPlayer
+    if (keyCode === 39){//right Arrow
+      if (whatColl < gridSize-1){
+        whatColl ++;
+      }   
+    }if (keyCode === 37){ //left Arrow
+      if (whatColl !== 0){
+        whatColl --;
+      }
+    }
+  
+    // adjusts lineplayer
+    if (key === "l" || key === "L" ){
+      linePlayer(whatLine);
+    }
+    //adjusts chordplayer
+    if ( key === "c" ||key === "C"){
+      chordPlayer(whatColl);
+    }
+    if ( key === "Z"||key === "z" ){
+      chordLinePlayer();
     }
   }
-  //  moves chordPlayer
-  if (keyCode === 39){//right Arrow
-    if (whatColl < gridSize-1){
-      whatColl ++;
-    }   
-  }if (keyCode === 37){ //left Arrow
-    if (whatColl !== 0){
-      whatColl --;
-    }
+  //makes the info screen come up & off
+  if (key === "h"||key === "H"){
+    instructionsOnScreen = !instructionsOnScreen;
+  
+  }
+  if (key === "i" ||key === "I"){
+    helpQue = !helpQue;
   }
   // changes the Key
   if (keyCode === 49){//1
@@ -122,27 +143,6 @@ function keyPressed(){
     if (keystate !== 0){
       keystate --;
     } 
-  }
-   
-  // adjusts lineplayer
-  if (key === "l" || key === "L" ){
-    linePlayer(whatLine);
-  }
-  //adjusts chordplayer
-  if ( key === "c" ||key === "C"){
-    chordPlayer(whatColl);
-  }
-  if ( key === "Z"||key === "z" ){
-    chordLinePlayer();
-  }
-
-  //makes the info screen come up & off
-  if (key === "h"||key === "H"){
-    instructionsOnScreen = !instructionsOnScreen;
-  
-  }
-  if (key === "i" ||key === "I"){
-    helpQue = !helpQue;
   }
 }
 
