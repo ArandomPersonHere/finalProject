@@ -8,7 +8,7 @@
 
 
 //grid sizes 
-let gridSize = 10;
+let gridSize = 15;
 let grid;
 
 
@@ -22,16 +22,33 @@ let keyAlpha = 0;
 
 let instructionsOnScreen = true;
 let helpQue = true;
-//let infoColor = [random(255),random(255), random(255)];
+
 
 
 //grid display
-let explanationsIm, infoBackground, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
+let explanationsIm, infoBackground,skyblueOrb, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
 let monoSynth;
 let gridState = [];
 
 // premade sounds
 let mySound = [];
+let aSong =  [
+  [2, 0, 6, 2, 4, 5, 5, 1, 7, 3, 2, 8, 2, 2, 8]
+  ,[0, 5, 0, 7, 2, 1, 5, 7, 3, 5, 0, 2, 3, 5, 0]
+  ,[2, 0, 3, 0, 2, 7, 2, 2, 0, 5, 5, 0, 7, 7, 2]
+  ,[3, 4, 2, 8, 7, 5, 2, 7, 7, 7, 5, 5, 5, 5, 7]
+  ,[7, 2, 7, 2, 2, 5, 7, 0, 0, 0, 2, 2, 0, 0, 7]
+  ,[3, 7, 0, 2, 2, 7, 6, 0, 0, 7, 5, 6, 2, 5, 4]
+  ,[0, 2, 2, 7, 5, 0, 7, 4, 0, 6, 0, 0, 0, 6, 2]
+  ,[1, 0, 2, 2, 7, 7, 2, 7, 2, 2, 7, 2, 5, 0, 3]
+  ,[4, 2, 7, 0, 6, 2, 7, 1, 2, 0, 1, 7, 2, 2, 7]
+  ,[2, 4, 0, 5, 7, 0, 7, 0, 5, 6, 5, 3, 4, 6, 2]
+  ,[7, 2, 5, 0, 5, 3, 5, 7, 7, 1, 0, 5, 0, 5, 3]
+  ,[4, 7, 5, 2, 2, 7, 1, 0, 4, 0, 2, 2, 2, 0, 2]
+  ,[1, 2, 0, 2, 4, 7, 2, 6, 5, 1, 3, 0, 4, 0, 1]
+  ,[2, 2, 6, 1, 2, 0, 3, 2, 5, 2, 8, 1, 7, 1, 3]
+  ,[5, 0, 0, 8, 0, 0, 2, 5, 7, 8, 0, 2, 4, 0, 6]
+];
 
 // non-premade sounds
 let velocity;
@@ -59,6 +76,7 @@ function preload(){
   swirlOrb = loadImage("assets/Empty Orb.png");
   reallyWhiteOrb = loadImage("assets/LightOrb.png");
   redOrb = loadImage("assets/Bloodless.png");
+  skyblueOrb = loadImage("assets/Iceless.png");
   keyOrb = loadImage("assets/Ecto Orb.png");
   infoBackground = loadImage("assets/tvBackground.jpg");
   explanationsIm = loadImage("assets/infoScreen2.PNG");
@@ -86,7 +104,7 @@ function keyPressed(){
   //press any named note on the keyboard(upper and lower case) and it will fill the grid
   if (!instructionsOnScreen){
     if (key === "e" ||key === "E" ){
-      grid = createEmpty2DArray(gridSize, gridSize, 1);
+      grid = createEmpty2DArray(gridSize, gridSize);
     }
     if (key === "r"|| key === "R" ){
       grid = createRandom2DArray(gridSize, gridSize);
@@ -143,6 +161,13 @@ function keyPressed(){
     if (keystate !== 0){
       keystate --;
     } 
+  }
+
+
+  //test for premade songs
+  if (key === "m"){
+    palyPlsMeSong(gridSize,gridSize,aSong);
+   
   }
 }
 
@@ -274,7 +299,7 @@ function mousePressed() {
   //will pause for infoscreen
   if (!instructionsOnScreen){
     //number of different notes can be changed here
-    if  (grid[cellY][cellX] === 7) {
+    if  (grid[cellY][cellX] === 8) {
       playSynth(grid[cellY][cellX],0);
       grid[cellY][cellX]  = 0;
     }
@@ -288,7 +313,7 @@ function mousePressed() {
 
 function displayGrid(whatLine, whatColl){
   let myOrbs = [
-    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb
+    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,skyblueOrb
   ];
   let cellWidth = windowWidth/gridSize;
   let cellHeight = windowHeight/gridSize;
@@ -338,7 +363,7 @@ function createRandom2DArray(rows,cols){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0, 1, 2, 3,3,3, 4, 5,5,5, 6,7];
+      let possNotes = [0, 0,0,0, 1, 2,2,2,2, 3, 4, 5,5,5, 6,7,7,7,8];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
@@ -355,6 +380,16 @@ function createEmpty2DArray(rows,cols,numToFill= 0){
     grid.push([]);
     for (let x = 0; x<cols; x++){
       grid[y].push(numToFill);
+    }
+  }
+  return grid;
+}
+function palyPlsMeSong(rows,cols,numToFill){
+  let grid = [];
+  for (let y = 0; y<rows; y++){
+    grid.push([]);
+    for (let x = 0; x<cols; x++){
+      grid[y].push(3);
     }
   }
   return grid;

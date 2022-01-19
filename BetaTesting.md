@@ -10,6 +10,11 @@ this will compile any complaints, suggestions, and adjustments made conserning t
 
  - General Suggestion: 
     clairify help Screen
+
+    How I adjusted
+    - clairified help screen 
+    - checked the spelling of displayed text
+    - 
  
 
 ## beta tester #2  Quinton
@@ -22,4 +27,7 @@ this will compile any complaints, suggestions, and adjustments made conserning t
  - no super major glitches
  - worked as intended
 
-
+    How I adjusted
+    - refined help screen 
+    - disabled players when help screen is active
+    - 
