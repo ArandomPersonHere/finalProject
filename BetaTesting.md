@@ -31,3 +31,9 @@ this will compile any complaints, suggestions, and adjustments made conserning t
     - refined help screen 
     - disabled players when help screen is active
     - 
+
+## beta tester #3  George
+
+ - it's a lot to start with 
+ - 
+ 
