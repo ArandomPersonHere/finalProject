@@ -25,7 +25,7 @@
 
 
 //grid sizes 
-let gridSize = 15;
+let gridSize = 12;
 let grid;
 
 
@@ -42,13 +42,13 @@ let helpQue = true;
 
 
 
-//grid display
-let explanationsIm, infoBackground,skyblueOrb, whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,keyOrb;
+//all names for images, if adding image for note display add to myOrbs in displayGrid()
+let  bllOrb, explanationsIm, infoBackground, keyOrb,whiteOrb, yellowOrb, greenOrb, blueOrb,greyOrb, swirlOrb, reallyWhiteOrb, redOrb,skyblueOrb,airOrb;
+
 let monoSynth;
 let gridState = [];
 
 // premade sounds
-let mySound = [];
 let aSong =  [
   //d d d a G g f d f g c c d a G  
   //g f d f g b b d a G g f d f g 
@@ -72,41 +72,46 @@ let aSong =  [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 let carol = [
-  [0, 0, 0, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  //"G3","A4","Bb4","C4","D4","Eb4","F4","G4","A5","Bb5"
+  // 0    1     2    3     4    5     6    7    8    9 
+  //^D^C^D Bb ^D -^C ^D Bb^D ^C ^D Bb^D -^C ^D Bb
+  //Bb A Bb G Bb A Bb GBb A -Bb -GBb -A Bb G  verse
+  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+  [7, 7, 6, 7, 4, 4, 3, 3, 4, 3, 2, 2],
+  [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
+  [4, 5, 6, 7, 8, 9, 3, 4, 3, 2, 2, 2],
+  [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
+  [4, 5, 5, 6, 7, 8, 9, 3, 4, 3, 3, 2]
 ];
 
 // non-premade sounds
+let mySound = [];
 let velocity;
 let time = 0;
 let dur = 1* 0.45;
 let note = [
+  ["G3","A4", "Bb4", "C4", "D4", "Eb4", "F4", "G4","A5", "Bb5","C5","Gminor, G3 to Bb5 max10"], // Gminor
   ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 max9"] ,  //Cscale
   ["D4", "E4", "F4", "G4", "A5", "Bb5", "C5", "D5", "E5", "F5","Dminor, D4 to F5 max9"], //Dminor
   ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5 max9"],//Bbmajor
   ["A3","B3", "C3", "D3", "E3","F3", "G3","A4", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
   [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5 max9"], //Fmajor
   [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5", "bluesScale, C4 to F#5 max9"],// bluesScale
-  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5"]// Bminor pentatonic scale
+  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5 max9"]// Bminor pentatonic scale
 ];
 
 
 
 function preload(){
   //images and icons
+  bllOrb = loadImage("assets/blless.png");
+  airOrb = loadImage("assets/Airless.png");
   whiteOrb = loadImage("assets/Lightless.png"); 
   yellowOrb = loadImage("assets/Flameless.png");
   blueOrb = loadImage("assets/BLueOrb.png");
@@ -150,7 +155,7 @@ function keyPressed(){
       grid = createRandom2DArray(gridSize, gridSize);
     }
     if (key === "t" ){
-      grid = createAnotherArray(gridSize, gridSize,aSong);
+      grid = createAnotherArray(gridSize, gridSize,carol);
     }
 
     // moves linePlayer
@@ -278,7 +283,7 @@ function chordLinePlayer(){
         playSynth(chordArray[i], 0);
       } 
     }
-    time += 0.5; 
+    time += 0.2; 
     if (whatColl < gridSize){
       whatColl ++;
     }   
@@ -338,21 +343,36 @@ function mousePressed() {
   //will pause for infoscreen
   if (!instructionsOnScreen){
     //number of different notes can be changed here
-    if  (grid[cellY][cellX] === 8) {
-      playSynth(grid[cellY][cellX],0);
-      grid[cellY][cellX]  = 0;
+    if (keystate === 0){
+      if  (grid[cellY][cellX] === 10) {
+        playSynth(grid[cellY][cellX],0);
+        grid[cellY][cellX]  = 0;
+      }
+      else{
+        playSynth(grid[cellY][cellX], 0);
+        grid[cellY][cellX] ++;
+      }
     }
     else{
-      playSynth(grid[cellY][cellX], 0);
-      grid[cellY][cellX] ++;
+      if  (grid[cellY][cellX] === 9) {
+        playSynth(grid[cellY][cellX],0);
+        grid[cellY][cellX]  = 0;
+      }
+      else{
+        playSynth(grid[cellY][cellX], 0);
+        grid[cellY][cellX] ++;
+      }
     }
   }
+
   //saved 50 lines 
 }
 
 function displayGrid(whatLine, whatColl){
   let myOrbs = [
-    whiteOrb, yellowOrb, greenOrb, blueOrb, greyOrb, swirlOrb, reallyWhiteOrb, redOrb,skyblueOrb
+    whiteOrb, yellowOrb, greenOrb, blueOrb,
+    greyOrb, swirlOrb, reallyWhiteOrb, redOrb,
+    skyblueOrb,airOrb, bllOrb
   ];
   let cellWidth = windowWidth/gridSize;
   let cellHeight = windowHeight/gridSize;
