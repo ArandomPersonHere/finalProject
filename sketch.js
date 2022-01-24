@@ -25,8 +25,9 @@
 
 
 //grid sizes 
-let gridSize = 12;
+let gridSize = 15;
 let grid;
+let plannedGridsize = false;
 
 
 //line control varriables
@@ -71,25 +72,47 @@ let aSong =  [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
-let carol = [
-  //"G3","A4","Bb4","C4","D4","Eb4","F4","G4","A5","Bb5"
-  // 0    1     2    3     4    5     6    7    8    9 
-  //^D^C^D Bb ^D -^C ^D Bb^D ^C ^D Bb^D -^C ^D Bb
-  //Bb A Bb G Bb A Bb GBb A -Bb -GBb -A Bb G  verse
-  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
-  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
-  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
-  [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
-  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
-  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
-  [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
-  [7, 7, 6, 7, 4, 4, 3, 3, 4, 3, 2, 2],
-  [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
-  [4, 5, 6, 7, 8, 9, 3, 4, 3, 2, 2, 2],
-  [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
-  [4, 5, 5, 6, 7, 8, 9, 3, 4, 3, 3, 2]
-];
-
+let carol;
+if (gridSize === 12){// Carol of the Bells
+  plannedGridsize = true;
+  carol = [
+    [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+    [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+    [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+    [2, 2, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0],
+    [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+    [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+    [4, 4, 3, 4, 2, 2, 4, 4, 3, 4, 2, 2],
+    [7, 7, 6, 7, 4, 4, 3, 3, 4, 3, 2, 2],
+    [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
+    [4, 5, 6, 7, 8, 9, 3, 4, 3, 2, 2, 2],
+    [3, 3, 3, 3, 4, 3, 7, 0, 0, 0, 0, 0],
+    [4, 5, 5, 6, 7, 8, 9, 3, 4, 3, 3, 2]
+  
+  ];
+}
+if (gridSize === 15){
+  plannedGridsize = true;// chord example
+  carol = [
+    //"A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"
+    //  0   1     2      3     4   5      6    7     8     9 
+    [2, 2, 0, 0, 1, 2, 0, 2, 2, 0, 0, 1, 2, 0, 0],
+    [4, 2, 0, 0, 1, 2, 0, 4, 2, 0, 0, 1, 2, 0, 0],
+    [6, 9, 2, 2, 3, 9, 5, 6, 9, 2, 2, 3, 9, 5, 0],
+    [2, 4, 2, 2, 3, 4, 7, 2, 4, 2, 2, 3, 4, 7, 0],
+    [2, 6, 5, 4, 5, 6, 9, 2, 6, 5, 4, 5, 6, 9, 0],
+    [4, 6, 5, 4, 5, 6, 5, 4, 6, 5, 4, 5, 6, 5, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
+}
 // non-premade sounds
 let mySound = [];
 let velocity;
@@ -155,8 +178,15 @@ function keyPressed(){
       grid = createRandom2DArray(gridSize, gridSize);
     }
     if (key === "t" ){
-      grid = createAnotherArray(gridSize, gridSize,carol);
+      if (plannedGridsize){
+        grid = createAnotherArray(gridSize, gridSize,carol);
+      }
+      else{
+        text("There are no premade songs for this gridsize", 0 + windowWidth/4, windowHeight- 40);
+      }
     }
+    
+    
 
     // moves linePlayer
     if (keyCode === 40){ //Down Arrow
@@ -180,14 +210,14 @@ function keyPressed(){
     }
   
     // adjusts lineplayer
-    if (key === "l" || key === "L" ){
+    if (keyCode === 76){   // L
       linePlayer(whatLine);
     }
     //adjusts chordplayer
-    if ( key === "c" ||key === "C"){
+    if ( keyCode === 67){  // C
       chordPlayer(whatColl);
     }
-    if ( key === "Z"||key === "z" ){
+    if (keyCode === 90){ //z
       chordLinePlayer();
     }
   }
@@ -209,10 +239,6 @@ function keyPressed(){
       keystate --;
     } 
   }
-
-
-  //test for premade songs
- 
 }
 
 function  keyDisplay(note){
@@ -257,11 +283,11 @@ function chordLinePlayer(){
   //max chordsize is 8, if gridsize is more than 8 chords are redused to 5
   let temp = whatColl;
   whatColl = 0;
-  let chordArray = [];
+  
   for (let b = 0; b <gridSize; b++){   
     
     let chordArray = [];
-    
+    // if gridSize is small enough play whole grid
     if (gridSize<9){
       for (let i = 0; i<gridSize; i++){
         chordArray.push(grid[i][whatColl]);   
@@ -283,7 +309,8 @@ function chordLinePlayer(){
         playSynth(chordArray[i], 0);
       } 
     }
-    time += 0.2; 
+    //CANNOT GO BELOW 0.3 will break function!
+    time += 0.3; 
     if (whatColl < gridSize){
       whatColl ++;
     }   
