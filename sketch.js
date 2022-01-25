@@ -97,20 +97,20 @@ if (gridSize === 15){
     //"A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5"
     //  0   1     2      3     4   5      6    7     8     9 
     [2, 2, 0, 0, 1, 2, 0, 2, 2, 0, 0, 1, 2, 0, 0],
-    [4, 2, 0, 0, 1, 2, 0, 4, 2, 0, 0, 1, 2, 0, 0],
-    [6, 9, 2, 2, 3, 9, 5, 6, 9, 2, 2, 3, 9, 5, 0],
-    [2, 4, 2, 2, 3, 4, 7, 2, 4, 2, 2, 3, 4, 7, 0],
+    [4, 2, 0, 0, 1, 2, 0, 4, 2, 0, 0, 1, 2, 0, 7],
+    [6, 9, 2, 2, 3, 9, 5, 6, 9, 2, 2, 3, 9, 5, 3],
+    [2, 4, 2, 2, 3, 4, 7, 2, 4, 2, 2, 3, 4, 7, 7],
     [2, 6, 5, 4, 5, 6, 9, 2, 6, 5, 4, 5, 6, 9, 0],
-    [4, 6, 5, 4, 5, 6, 5, 4, 6, 5, 4, 5, 6, 5, 0],
+    [4, 6, 5, 4, 5, 6, 5, 4, 6, 5, 4, 5, 6, 5, 3],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4, 3],
+    [0, 2, 0, 4, 0, 6, 0, 8, 7, 0, 2, 4, 6, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [3, 0, 3, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0],
+    [3, 0, 3, 0, 0, 0, 0, 3, 0, 3, 0, 7, 0, 0, 7],
+    [3, 3, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 7, 0, 0],
+    [3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 7, 0],
+    [3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 7, 0, 0, 7],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0]
   ];
 }
 // non-premade sounds
@@ -119,21 +119,21 @@ let velocity;
 let time = 0;
 let dur = 1* 0.45;
 let note = [
-  ["G3","A4", "Bb4", "C4", "D4", "Eb4", "F4", "G4","A5", "Bb5","C5","Gminor, G3 to Bb5 max10"], // Gminor
-  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 max9"] ,  //Cscale
-  ["D4", "E4", "F4", "G4", "A5", "Bb5", "C5", "D5", "E5", "F5","Dminor, D4 to F5 max9"], //Dminor
-  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5 max9"],//Bbmajor
-  ["A3","B3", "C3", "D3", "E3","F3", "G3","A4", "B4", "C4","C3scale, A3 to C4, max9"],//C3scale(an octave belov middle C)
-  [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5 max9"], //Fmajor
-  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5", "bluesScale, C4 to F#5 max9"],// bluesScale
-  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5 max9"]// Bminor pentatonic scale
+  ["G3","A4", "Bb4", "C4", "D4", "Eb4", "F4", "G4","A5", "Bb5","C5","Gminor, G3 to Bb5 max10, key 1/8"], // Gminor
+  ["A4","B4", "C4", "D4", "E4","F4", "G4","A5", "B5", "C5", "Cscale, A4 to C5 , key 2/8"] ,  //Cscale
+  ["D4", "E4", "F4", "G4", "A5", "Bb5", "C5", "D5", "E5", "F5","Dminor, D4 to F5, key 3/8 "], //Dminor
+  ["A4","Bb4", "C4", "D4", "Eb4","F4", "G4","A5", "Bb5", "C5","Bbmajor, A4 to C5,key 4/8"],//Bbmajor
+  ["A3","B3", "C3", "D3", "E3","F3", "G3","A4", "B4", "C4","C3scale, A3 to C4, key 5/8"],//C3scale(an octave belov middle C)
+  [ "A4","Bb4", "C4", "D4", "E4","F4", "G4","A5", "Bb5", "C5","Fmajor, A4 to C5, key 6/8"], //Fmajor
+  [ "C4","Db4", "F4", "F#4", "G4","Bb4", "C5","Db5", "F5", "F#5", "bluesScale, C4 to F#5,key 7/8 "],// bluesScale
+  [ "B4","D4", "E4", "F#4", "A4","B4", "D5","E5", "F#5", "A5", "Bminor pentatonic, B4 to A5, key 8/8"]// Bminor pentatonic scale
 ];
 
 
 
 function preload(){
   //images and icons
-  bllOrb = loadImage("assets/blless.png");
+  bllOrb = loadImage("assets/Blless.png");
   airOrb = loadImage("assets/Airless.png");
   whiteOrb = loadImage("assets/Lightless.png"); 
   yellowOrb = loadImage("assets/Flameless.png");
@@ -310,7 +310,7 @@ function chordLinePlayer(){
       } 
     }
     //CANNOT GO BELOW 0.3 will break function!
-    time += 0.3; 
+    time += 0.5; 
     if (whatColl < gridSize){
       whatColl ++;
     }   
@@ -449,7 +449,7 @@ function createRandom2DArray(rows,cols){
     for (let x = 0; x<cols; x++) {
 
       // one line to save you from if/ifelse pain
-      let possNotes = [0, 0,0,0, 1, 2,2,2,2, 3, 4, 5,5,5, 6,7,7,7,8];
+      let possNotes = [0, 0,0,0, 1, 2,2,2,2, 3, 4, 5,5,5, 6,7,7,7,8,9];
 
       grid[y].push(random(possNotes));
       // // saves 20 lines
