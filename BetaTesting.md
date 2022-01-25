@@ -34,6 +34,10 @@ this will compile any complaints, suggestions, and adjustments made conserning t
 
 ## beta tester #3  George
 
- - it's a lot to start with 
- - 
+ - it's a lot to start with and there's a bit of information overload
+ - clairify keys
+
+    How I adjusted 
+    - added a key counter in the info screen 
+    - 
  
